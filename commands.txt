@@ -1,0 +1,22 @@
+nest g module nameTest => to make a new dir with "nameTest" with all codes and imports ready
+nest g controller nameTest => to make controller files of this dir with codes and imports ready
+nest g service nameTest => to make provider files of this dir with codes and imports ready
+nest g resource nameTest => to make everything(DTOs,entities,controllers,services,modules)
+
+npm i @nestjs/libraryName -D => D for installing in dev only
+npm prisma init
+
+
+CODES OF THE STATES:-
+
+200 (OK): The request was successful.
+
+201 (Created): A new resource was successfully created.
+
+400 (Bad Request): The server cannot process the request due to invalid syntax or missing parameters.
+
+404 (Not Found): The requested resource could not be found.
+
+422 (Unprocessable Entity): The server understands the content type of the request entity but was unable to process the request.
+
+500 (Internal Server Error): An error occurred on the server.
