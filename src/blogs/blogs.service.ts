@@ -1,13 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable , NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
-import { Blog } from '@prisma/client';
 
 @Injectable()
 export class BlogsService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async addBlog(createBlogDto: Prisma.BlogCreateInput) {
+  async addBlog(createBlogDto: Prisma.blogCreateInput) {
     return this.databaseService.blog.create({ data: createBlogDto });
   }
 
@@ -24,7 +23,7 @@ export class BlogsService {
     return this.databaseService.blog.findUnique({ where: { Article_id } }); // where takes the name of the column , if not the name of the column we write it as {columnName: variable}
   }
 
-  async updateBlog(Article_id: string, updateBlogDto: Prisma.BlogUpdateInput) {
+  async updateBlog(Article_id: string, updateBlogDto: Prisma.blogUpdateInput) {
     return this.databaseService.blog.update({
       where: { Article_id },
       data: updateBlogDto,

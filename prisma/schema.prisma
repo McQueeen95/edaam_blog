@@ -19,24 +19,24 @@ datasource db {
 }
 
 // Define the Blog table
-model Blog{
+model blog{
   Article_id           String          @id @default(uuid()) @db.Uuid
-  Article_title_AR     String          @db.VarChar(255)
-  Article_title_EN     String?         @db.VarChar(255)
+  Article_title_AR     String          @db.VarChar(255) @unique
+  Article_title_EN     String?         @db.VarChar(255) @unique
   Post_date            DateTime        @default(now())
   Update_date          DateTime        @updatedAt
   image                String          @default("https://img.ev.mu/images/portfolio/pays/181/1605x1070/847131.jpg")
   Article_content      String
-  Category_id          String          @db.VarChar(36)
-  category             Blog_category   @relation(fields: [Category_id],references: [Id_blog_cat])
+  Category_id          String          @db.Uuid
+  category             blog_category   @relation(fields: [Category_id],references: [Id_blog_cat])
 }
 
 // Define the Blog_category table
-model Blog_category{
-  Id_blog_cat          String     @id @default(uuid())
-  Category_name_AR     String     @db.VarChar(255)
-  Category_name_EN     String?    @db.VarChar(255)
-  blogs                Blog[]
+model blog_category{
+  Id_blog_cat          String     @id @default(uuid()) @db.Uuid
+  Category_name_AR     String     @db.VarChar(255) @unique
+  Category_name_EN     String?    @db.VarChar(255) @unique
+  blogs                blog[]
 }
 
 // ! if we want to change something here we should write this command in cmd to regenerate "npx prisma generate" to keep the database schema in sync with the Prisma schema

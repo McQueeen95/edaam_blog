@@ -28,7 +28,7 @@ export class BlogsController {
   */
 
   @Post('addPost') // this is POST with no params as http://localhost:3000/blog/addPost that creates a blog
-  addBlog(@Body() createBlogDto: Prisma.BlogCreateInput) {
+  addBlog(@Body() createBlogDto: Prisma.blogCreateInput) {
     return this.blogsService.addBlog(createBlogDto);
   }
 
@@ -54,7 +54,7 @@ export class BlogsController {
   }
 
   @Patch('updatePost/:id') // this is PATCH with params (id) as http://localhost:3000/blog/updatePost/:id that updates a blog
-  updateBlog(@Param('id') id: string, @Body() updateBlogDto: Prisma.BlogUpdateInput){
+  updateBlog(@Param('id') id: string, @Body() updateBlogDto: Prisma.blogUpdateInput){
     return this.blogsService.updateBlog(id, updateBlogDto)
   }
 
