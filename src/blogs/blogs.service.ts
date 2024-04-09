@@ -9,9 +9,26 @@ export class BlogsService {
   async addBlog(createBlogDto: Prisma.blogCreateInput) {
     return this.databaseService.blog.create({ data: createBlogDto });
   }
-
-  async getAllBlogs() {
-    return this.databaseService.blog.findMany();
+  async getAllPostsByCategoryIdOrName(Category_id?: string, Category_name_AR?: string, Category_name_EN?: string) {
+    if(Category_id || Category_name_AR || Category_name_EN){
+      return this.databaseService.blog.findMany({
+        where: {
+          OR: [
+            { Category_id },
+            { category: 
+              { 
+                OR: [
+                  { Category_name_AR }, 
+                  { Category_name_EN }
+                ] 
+              } 
+            },
+          ],
+        },
+      })
+    }else{
+      return this.databaseService.blog.findMany();
+    }
   }
   async getAllBlogsDesc() {
     return this.databaseService.blog.findMany({where: {Post_date:'desc'}}); // from latest to oldest articles

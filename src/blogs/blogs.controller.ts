@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete , Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete , Query, ParseUUIDPipe } from '@nestjs/common';
 import { BlogsService } from './blogs.service';
 import { Prisma } from '@prisma/client';
+import { IsUUID } from 'class-validator';
 
 
 @Controller('blog') // /blog    #here we start our route as (http://localhost:3000/blog) by work "blog"
@@ -32,10 +33,10 @@ export class BlogsController {
     return this.blogsService.addBlog(createBlogDto);
   }
 
-  @Get('getAllPosts') // this is GET  http://localhost:3000/blog/getAllPosts that gets all blogs 
-  //! @ this decorator it means this is a GET method with key and value
-  getAllBlogs(){ // '?' means that this param is optional
-    return this.blogsService.getAllBlogs()
+  //! @Query this decorator it means this is a GET method with key and value
+  @Get('getAllPosts') // this is GET with params as http://localhost:3000/blog/getAllPosts/ that gets all blogs
+  getPosts(@Query('categoryID') categoryID?: string, @Query('nameAR') nameAR?: string, @Query('nameEN') nameEN?: string) { // '?' means that this param is optional
+    return this.blogsService.getAllPostsByCategoryIdOrName(categoryID, nameAR, nameEN)
   }
 
   @Get('getAllPostsDesc') // this is GET with params as http://localhost:3000/blog/getAllPostsDesc that gets all blogs in descending order
@@ -49,17 +50,17 @@ export class BlogsController {
   }
 
   @Get('getPostByID/:id') // this is GET with params (id) as http://localhost:3000/blog/getPostByID/:id that gets one blog
-  getBlogByID(@Param('id') id: string){
+  getBlogByID(@Param('id',ParseUUIDPipe) id: string){
     return this.blogsService.getBlogById(id)
   }
 
   @Patch('updatePost/:id') // this is PATCH with params (id) as http://localhost:3000/blog/updatePost/:id that updates a blog
-  updateBlog(@Param('id') id: string, @Body() updateBlogDto: Prisma.blogUpdateInput){
+  updateBlog(@Param('id',ParseUUIDPipe) id: string, @Body() updateBlogDto: Prisma.blogUpdateInput){
     return this.blogsService.updateBlog(id, updateBlogDto)
   }
 
-  @Delete('deletePost/:id') // this is DELETE with params (id) as http://localhost:3000/blog/deletePost/:id that deletes a blog
-  deleteBlog(@Param('id') id: string){
+  @Delete('deletePost/:id',) // this is DELETE with params (id) as http://localhost:3000/blog/deletePost/:id that deletes a blog
+  deleteBlog(@Param('id',ParseUUIDPipe) id: string){
     return this.blogsService.deleteBlog(id)
   }
 }
