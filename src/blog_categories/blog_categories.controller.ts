@@ -1,8 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { BlogCategoriesService } from './blog_categories.service';
 import { Prisma } from '@prisma/client';
-import { CreateBlogCategoryDto } from './dto/create-blog_category.dto';
-import { UpdateBlogCategoryDto } from './dto/update-blog_category.dto';
 import { SkipThrottle , Throttle } from '@nestjs/throttler';
 
 
