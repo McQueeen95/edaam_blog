@@ -6,17 +6,20 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 import * as express from 'express';
 
 async function bootstrap() {
+  const server = express();
   const app = await NestFactory.create(
     AppModule,
-    new ExpressAdapter(express())
+    new ExpressAdapter(server)
     );
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
   
-  app.enableCors({
-    origin: /(https?:\/\/(?:localhost:\d+|www\.mysite\.com))\/?$/ , // allow http://localhost:XXXX or http://www.mysite.com
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  })
+  app.enableCors();
+
+  // app.enableCors({
+  //   origin: /(https?:\/\/(?:localhost:\d+|www\.mysite\.com))\/?$/ , // allow http://localhost:XXXX or http://www.mysite.com
+  //   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  // })
   // app.enableCors({
   //   origin: function(origin, callback) {
   //     if (origin === 'http://localhost:3000' || origin === 'https://www.mysite.com' || !origin) {
