@@ -14,7 +14,8 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
   
   app.enableCors();
-
+  
+  // commented for now
   // app.enableCors({
   //   origin: /(https?:\/\/(?:localhost:\d+|www\.mysite\.com))\/?$/ , // allow http://localhost:XXXX or http://www.mysite.com
   //   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
