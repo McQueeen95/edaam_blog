@@ -3,13 +3,12 @@ import { AppModule } from './app.module';
 import helmet  from 'helmet';
 import { AllExceptionsFilter } from './all-exceptions.filter';
 import { ExpressAdapter } from '@nestjs/platform-express';
-import * as express from 'express';
+//import * as express from 'express';
 
 async function bootstrap() {
-  const server = express();
   const app = await NestFactory.create(
     AppModule,
-    new ExpressAdapter(server)
+    //new ExpressAdapter(express())
     );
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
