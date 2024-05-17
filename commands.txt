@@ -3,6 +3,11 @@ nest g controller nameTest => to make controller files of this dir with codes an
 nest g service nameTest => to make provider files of this dir with codes and imports ready
 nest g resource nameTest => to make everything(DTOs,entities,controllers,services,modules)
 
+this the google drive folder link of palastine photos:
+https://drive.google.com/drive/folders/1Lncxu7lqt9ZnFgiIe67TE6Scb-FJls5n?usp=sharing 
+ID : 1Lncxu7lqt9ZnFgiIe67TE6Scb-FJls5n
+
+
 npm i @nestjs/libraryName -D => D for installing in dev only
 npm prisma init
 

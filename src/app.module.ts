@@ -7,6 +7,7 @@ import { BlogCategoriesModule } from './blog_categories/blog_categories.module';
 import { ThrottlerModule , ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { MyLoggerModule } from './my-logger/my-logger.module';
+import { GoogleDrivePhotosModule } from './google-drive-photos/google-drive-photos.module';
 
 @Module({
   imports: [
@@ -28,12 +29,13 @@ import { MyLoggerModule } from './my-logger/my-logger.module';
       ttl: 60000,         // time to live in milliseconds , so this is 1 minute
       limit: 500,         // maximum number of requests allowed per ttl
     }]),
-    MyLoggerModule
+    MyLoggerModule,
+    GoogleDrivePhotosModule
   ],
   controllers: [AppController],
   providers: [AppService,{
     provide: APP_GUARD,
     useClass: ThrottlerGuard
-  }],
+  }]
 })
 export class AppModule {}
