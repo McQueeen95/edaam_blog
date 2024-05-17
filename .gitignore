@@ -3,7 +3,9 @@
 /node_modules
 /build
 /.env
-/.credentials.json
+
+# Ignore credentials file
+credentials.json
 
 # Logs
 logs
