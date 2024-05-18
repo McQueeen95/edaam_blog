@@ -18,7 +18,7 @@ export class GoogleDrivePhotosService {
       },
       scopes: ['https://www.googleapis.com/auth/drive.readonly'],  
       /**
-       * If you need more permissions, you can request other scopes like:
+        If you need more permissions, you can request other scopes like:
         https://www.googleapis.com/auth/drive.file: Allows read and write access to the files created or opened by the app.
         https://www.googleapis.com/auth/drive: Full, permissive scope to access all of the user's files, including the ability to modify or delete them.
        */
