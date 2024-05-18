@@ -1,15 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { google } from 'googleapis';
-import * as fs from 'fs';
-import * as path from 'path';
+import { GoogleAuth } from 'google-auth-library';
+require('dotenv').config();
 
 @Injectable()
 export class GoogleDrivePhotosService {
   private driveClient: any;
   constructor() {
-    const auth = new google.auth.GoogleAuth({
-      keyFile: path.join(__dirname, '../../credentials.json'),
-      scopes: ['https://www.googleapis.com/auth/drive.readonly'], 
+
+    const auth = new GoogleAuth({
+
+      credentials: {
+        client_id: process.env.GOOGLE_CREDENTIALS_CLIENT_ID,
+        client_email: process.env.GOOGLE_CREDENTIALS_CLIENT_EMAIL,
+        project_id: process.env.GOOGLE_CREDENTIALS_PROJECT_ID,
+        private_key: process.env.GOOGLE_CREDENTIALS_PRIVATE_KEY,
+      },
+      scopes: ['https://www.googleapis.com/auth/drive.readonly'],  
       /**
        * If you need more permissions, you can request other scopes like:
         https://www.googleapis.com/auth/drive.file: Allows read and write access to the files created or opened by the app.
