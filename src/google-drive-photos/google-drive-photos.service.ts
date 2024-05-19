@@ -25,7 +25,7 @@ export class GoogleDrivePhotosService {
     });
     this.driveClient = google.drive({ version: 'v3', auth });
   }
-  async getRandomPhoto(folderId:string):Promise<string>{
+  async getRandomPhoto(folderId:string){
     try{
       const response = await this.driveClient.files.list({
         q: `'${folderId}' in parents and mimeType contains 'image/'`,
