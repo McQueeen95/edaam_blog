@@ -29,15 +29,15 @@ export class GoogleDrivePhotosService {
     try{
       const response = await this.driveClient.files.list({
         q: `'${folderId}' in parents and mimeType contains 'image/'`,
-        fields: 'files(id, name)',
+        fields: 'files(id, thumbnailLink)',
       });
       const files = response.data.files;
       if (!files || files.length === 0) {
         throw new Error('No files found in the folder.');
       }
       const randomFile = files[Math.floor(Math.random() * files.length)];
-      const previewUrl = `https://drive.google.com/uc?export=view&id=${randomFile.id}`;
-      return previewUrl;
+      //const previewUrl = `https://drive.google.com/uc?export=view&id=${randomFile.id}`;
+      return randomFile.thumbnailLink;
     }catch(error){
       throw new Error(`Failed to retrieve photo: ${error.message}`);
     }
