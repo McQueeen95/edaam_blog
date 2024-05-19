@@ -24,6 +24,8 @@ async function bootstrap() {
   // })
 
   app.use(helmet());
-  await app.listen(3000);
+  await app.listen(3000, '127.0.0.1', () => {
+    console.log(`Application is running on: http://${app.getHttpServer().address().address}:${app.getHttpServer().address().port}`);
+  });
 }
 bootstrap();
