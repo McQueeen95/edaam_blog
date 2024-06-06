@@ -8,6 +8,9 @@ https://drive.google.com/drive/folders/1Lncxu7lqt9ZnFgiIe67TE6Scb-FJls5n?usp=sha
 ID : 1Lncxu7lqt9ZnFgiIe67TE6Scb-FJls5n
 
 
+API :
+https://edaam-blog.vercel.app/palestinePhotos/getRandomPhoto/1Lncxu7lqt9ZnFgiIe67TE6Scb-FJls5n
+
 npm i @nestjs/libraryName -D => D for installing in dev only
 npm prisma init
 
