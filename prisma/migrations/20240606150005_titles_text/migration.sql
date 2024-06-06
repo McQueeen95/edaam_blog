@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "blog" ALTER COLUMN "Article_title_AR" SET DATA TYPE TEXT,
+ALTER COLUMN "Article_title_EN" SET DATA TYPE TEXT;
