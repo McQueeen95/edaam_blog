@@ -15,11 +15,11 @@ datasource db {
 
 // Define the Blog table
 model blog {
-  Article_id       String        @id @default(uuid()) @db.Uuid
+  Article_id       String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   Article_title_AR String        @unique
   Article_title_EN String?       @unique
   Post_date        DateTime      @default(now())
-  Update_date      DateTime      @updatedAt
+  Update_date      DateTime      @updatedAt @default(now())
   image            String        @default("https://img.ev.mu/images/portfolio/pays/181/1605x1070/847131.jpg")
   Article_content  String
   Category_id      String        @db.Uuid
@@ -28,11 +28,11 @@ model blog {
 
 // Define the Blog_category table
 model blog_category {
-  Id_blog_cat      String  @id @default(uuid()) @db.Uuid
+  Id_blog_cat      String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid // to make the defualt value to id_blog_cat with uuid in prisma type 
   Category_name_AR String  @unique @db.VarChar(255)
   Category_name_EN String? @unique @db.VarChar(255)
   blogs            blog[]
-}
+  }
 
 // ! if we want to change something here we should write this command in cmd to regenerate "npx prisma generate" to keep the database schema in sync with the Prisma schema
 // ! then we type npx prisma migrate dev --name modifiyName as it is the modifiy name => and this gonna make another migratons folder with modifications
