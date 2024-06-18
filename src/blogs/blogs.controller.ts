@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete , Query, ParseUUIDPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete , Query, ParseUUIDPipe, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { BlogsService } from './blogs.service';
 import { Prisma } from '@prisma/client';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { IsUUID } from 'class-validator';
 
 
@@ -29,8 +30,11 @@ export class BlogsController {
   */
 
   @Post('addPost') // this is POST with no params as http://localhost:3000/blog/addPost that creates a blog
-  addBlog(@Body() createBlogDto: Prisma.blogCreateInput) {
-    return this.blogsService.addBlog(createBlogDto);
+  @UseInterceptors(FileInterceptor('image'))
+  async addBlog(
+    @Body() createBlogDto: Prisma.blogCreateInput
+    , @UploadedFile() image: Express.Multer.File) {
+    return this.blogsService.addBlog(createBlogDto, image); 
   }
 
   //! @Query this decorator it means this is a GET method with key and value

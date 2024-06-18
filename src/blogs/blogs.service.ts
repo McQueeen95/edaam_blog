@@ -1,13 +1,22 @@
 import { Injectable , NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
+import { ImageUploadService } from 'src/image-upload/image-upload.service';
 
 @Injectable()
 export class BlogsService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly imageUploadService: ImageUploadService
+    ) {}
 
-  async addBlog(createBlogDto: Prisma.blogCreateInput) {
-    return this.databaseService.blog.create({ data: createBlogDto });
+  async addBlog(createBlogDto: Prisma.blogCreateInput, image: Express.Multer.File) {
+    const uploadResult = await this.imageUploadService.uploadImage(image); // upload image to cloudinary
+    const blogData = {
+      ...createBlogDto,
+      image: uploadResult.url,
+    };
+    return this.databaseService.blog.create({ data: blogData });
   }
   async getAllPostsByCategoryIdOrName(Category_id?: string, Category_name_AR?: string, Category_name_EN?: string) {
     if(Category_id || Category_name_AR || Category_name_EN){
