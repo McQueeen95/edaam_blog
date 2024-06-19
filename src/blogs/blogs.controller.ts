@@ -31,10 +31,10 @@ export class BlogsController {
 
   @Post('addPost') // this is POST with no params as http://localhost:3000/blog/addPost that creates a blog
   @UseInterceptors(FileInterceptor('image'))
-  async addBlog(
+  addBlog(
     @Body() createBlogDto: Prisma.blogCreateInput,
     @UploadedFile() image?: Express.Multer.File) {
-        return await this.blogsService.addBlog(createBlogDto, image);
+        return this.blogsService.addBlog(createBlogDto, image);
     }
 
   //! @Query this decorator it means this is a GET method with key and value

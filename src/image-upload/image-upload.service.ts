@@ -5,18 +5,16 @@ import { v2 as cloudinary ,UploadApiResponse, UploadApiErrorResponse } from 'clo
 export class ImageUploadService {
   private readonly logger = new Logger(ImageUploadService.name);
   constructor(@Inject('Cloudinary') private cloudinary) {}
-
   async uploadImage(image: Express.Multer.File): Promise<UploadApiResponse | UploadApiErrorResponse> {
     return new Promise((resolve, reject) => {
-      const uploadStream = cloudinary.uploader.upload_stream((error, result) => {
+      cloudinary.uploader.upload_stream({resource_type: 'image'},(error, result) => {
         if (error) {
           this.logger.error('Cloudinary upload failed', error);
           reject(error);
         } else {
           resolve(result);
         }
-      });
-      uploadStream.end(image.buffer);
+      }).end(image.buffer);
     });
   }
 }
