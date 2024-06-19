@@ -2,8 +2,7 @@ import { NestFactory , HttpAdapterHost } from '@nestjs/core';
 import { AppModule } from './app.module';
 import helmet  from 'helmet';
 import { AllExceptionsFilter } from './all-exceptions.filter';
-import { HttpExceptionFilter } from './common/filters/http-exception.filter';
-import { ValidationPipe } from '@nestjs/common';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(
@@ -26,8 +25,6 @@ async function bootstrap() {
   // })
 
   app.use(helmet());
-  app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(3000, '127.0.0.1', () => {
     console.log(`Application is running on: http://${app.getHttpServer().address().address}:${app.getHttpServer().address().port}`);
   });

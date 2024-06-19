@@ -10,11 +10,11 @@ export class BlogsService {
     private readonly imageUploadService: ImageUploadService
     ) {}
 
-  async addBlog(createBlogDto: Prisma.blogCreateInput, image: Express.Multer.File) {
-    const uploadResult = await this.imageUploadService.uploadImage(image); // upload image to cloudinary
+  async addBlog(createBlogDto: Prisma.blogCreateInput, image?: Express.Multer.File) {
+    const uploadResult = image ? await this.imageUploadService.uploadImage(image) : undefined; // upload image to cloudinary
     const blogData = {
       ...createBlogDto,
-      image: uploadResult.url,
+      image: uploadResult?.url,
     };
     return this.databaseService.blog.create({ data: blogData });
   }

@@ -7,11 +7,10 @@ export class ImageUploadService {
   constructor(@Inject('Cloudinary') private cloudinary) {}
 
   async uploadImage(file: Express.Multer.File): Promise<UploadApiResponse | UploadApiErrorResponse> {
-    if (!file) {
-      this.logger.error('No file provided');
-      throw new BadRequestException('No file provided');
-    }
-
+    // if (!file) {
+    //   this.logger.error('No file provided');
+    //   throw new BadRequestException('No file provided');
+    // }
     return new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream((error, result) => {
         if (error) {
