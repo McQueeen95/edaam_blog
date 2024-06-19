@@ -11,11 +11,16 @@ export class BlogsService {
     ) {}
 
   async addBlog(createBlogDto: Prisma.blogCreateInput, image?: Express.Multer.File) {
-    const uploadResult = image ? await this.imageUploadService.uploadImage(image) : undefined; // upload image to cloudinary
+    let imageUrl = 'https://img.ev.mu/images/portfolio/pays/181/1605x1070/847131.jpg'; // Default image URL
+    if (image) {
+      const uploadResult = await this.imageUploadService.uploadImage(image);
+      imageUrl = uploadResult.url;
+    }
     const blogData = {
       ...createBlogDto,
-      image: uploadResult?.url,
+      image: imageUrl,
     };
+
     return this.databaseService.blog.create({ data: blogData });
   }
   async getAllPostsByCategoryIdOrName(Category_id?: string, Category_name_AR?: string, Category_name_EN?: string) {

@@ -33,7 +33,7 @@ export class BlogsController {
   @UseInterceptors(FileInterceptor('image'))
   async addBlog(
     @Body() createBlogDto: Prisma.blogCreateInput
-    , @UploadedFile() image: Express.Multer.File) {
+    , @UploadedFile() image?: Express.Multer.File) {
     // if(!image) throw new BadRequestException('Image is required');
       const blogPost = await this.blogsService.addBlog(createBlogDto, image);
       return blogPost;
