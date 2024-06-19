@@ -11,17 +11,16 @@ export class BlogsService {
     ) {}
 
   async addBlog(createBlogDto: Prisma.blogCreateInput, image?: Express.Multer.File) {
-    let imageUrl = 'https://img.ev.mu/images/portfolio/pays/181/1605x1070/847131.jpg'; // Default image URL
-    if (image) {
+    if(image){
       const uploadResult = await this.imageUploadService.uploadImage(image);
-      imageUrl = uploadResult.url;
+      const blogData = {
+        ...createBlogDto,
+        image: uploadResult.url,
+      };
+      return this.databaseService.blog.create({ data: blogData });
+    } else {
+      return this.databaseService.blog.create({ data: createBlogDto });
     }
-    const blogData = {
-      ...createBlogDto,
-      image: imageUrl,
-    };
-
-    return this.databaseService.blog.create({ data: blogData });
   }
   async getAllPostsByCategoryIdOrName(Category_id?: string, Category_name_AR?: string, Category_name_EN?: string) {
     if(Category_id || Category_name_AR || Category_name_EN){

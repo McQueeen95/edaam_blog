@@ -32,12 +32,10 @@ export class BlogsController {
   @Post('addPost') // this is POST with no params as http://localhost:3000/blog/addPost that creates a blog
   @UseInterceptors(FileInterceptor('image'))
   async addBlog(
-    @Body() createBlogDto: Prisma.blogCreateInput
-    , @UploadedFile() image?: Express.Multer.File) {
-    // if(!image) throw new BadRequestException('Image is required');
-      const blogPost = await this.blogsService.addBlog(createBlogDto, image);
-      return blogPost;
-  }
+    @Body() createBlogDto: Prisma.blogCreateInput,
+    @UploadedFile() image?: Express.Multer.File) {
+        return await this.blogsService.addBlog(createBlogDto, image);
+    }
 
   //! @Query this decorator it means this is a GET method with key and value
   @Get('getAllPosts') // this is GET with params as http://localhost:3000/blog/getAllPosts/ that gets all blogs

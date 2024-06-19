@@ -6,11 +6,7 @@ export class ImageUploadService {
   private readonly logger = new Logger(ImageUploadService.name);
   constructor(@Inject('Cloudinary') private cloudinary) {}
 
-  async uploadImage(file: Express.Multer.File): Promise<UploadApiResponse | UploadApiErrorResponse> {
-    // if (!file) {
-    //   this.logger.error('No file provided');
-    //   throw new BadRequestException('No file provided');
-    // }
+  async uploadImage(image: Express.Multer.File): Promise<UploadApiResponse | UploadApiErrorResponse> {
     return new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream((error, result) => {
         if (error) {
@@ -20,7 +16,7 @@ export class ImageUploadService {
           resolve(result);
         }
       });
-      uploadStream.end(file.buffer);
+      uploadStream.end(image.buffer);
     });
   }
 }
