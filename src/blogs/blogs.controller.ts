@@ -36,7 +36,8 @@ export class BlogsController {
     , @UploadedFile() image: Express.Multer.File) {
     if(!image) throw new BadRequestException('Image is required');
     try{
-      return this.blogsService.addBlog(createBlogDto, image); 
+      const blogPost = await this.blogsService.addBlog(createBlogDto, image);
+      return blogPost;
     } catch(error) {
       throw new BadRequestException('Failed: ',error);
     }
