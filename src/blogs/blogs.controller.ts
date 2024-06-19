@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete , Query, ParseUUIDPipe, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete , Query, ParseUUIDPipe, UploadedFile, UseInterceptors, BadRequestException} from '@nestjs/common';
 import { BlogsService } from './blogs.service';
 import { Prisma } from '@prisma/client';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -34,7 +34,12 @@ export class BlogsController {
   async addBlog(
     @Body() createBlogDto: Prisma.blogCreateInput
     , @UploadedFile() image: Express.Multer.File) {
-    return this.blogsService.addBlog(createBlogDto, image); 
+    if(!image) throw new BadRequestException('Image is required');
+    try{
+      return this.blogsService.addBlog(createBlogDto, image); 
+    } catch(error) {
+      throw new BadRequestException('Failed: ',error);
+    }
   }
 
   //! @Query this decorator it means this is a GET method with key and value
