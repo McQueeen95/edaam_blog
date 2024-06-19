@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  async getHello():Promise<string> {
+    return await 'Hello World!';
   }
 
-  getMessage(route: string): string {
+  async getMessage(route: string):Promise<string> {
     if(route !== '/'){
-      return 'Wrong route';
+      return await 'Wrong route';
     }
   }
 }
