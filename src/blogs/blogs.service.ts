@@ -11,10 +11,10 @@ export class BlogsService {
     ) {}
   async addBlog(createBlogDto: Prisma.blogCreateInput, image?: Express.Multer.File) {
     if(image){
-      const uploadResult = await this.imageUploadService.uploadImage(image);
+      const imageUrl = await this.imageUploadService.uploadImage(image);
       const blogData = {
         ...createBlogDto,
-        image: uploadResult.url,
+        image: imageUrl,
       };
       return await this.databaseService.blog.create({ data: blogData });
     } else {

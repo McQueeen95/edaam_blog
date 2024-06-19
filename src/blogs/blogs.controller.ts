@@ -31,16 +31,16 @@ export class BlogsController {
 
   @Post('addPost') // this is POST with no params as http://localhost:3000/blog/addPost that creates a blog
   @UseInterceptors(FileInterceptor('image'))
-  addBlog(
+  async addBlog(
     @Body() createBlogDto: Prisma.blogCreateInput,
     @UploadedFile() image?: Express.Multer.File) {
-        return this.blogsService.addBlog(createBlogDto, image);
+        return await this.blogsService.addBlog(createBlogDto, image);
     }
 
   //! @Query this decorator it means this is a GET method with key and value
   @Get('getAllPosts') // this is GET with params as http://localhost:3000/blog/getAllPosts/ that gets all blogs
-  getPosts(@Query('categoryID') categoryID?: string, @Query('nameAR') nameAR?: string, @Query('nameEN') nameEN?: string) { // '?' means that this param is optional
-    return this.blogsService.getAllPostsByCategoryIdOrName(categoryID, nameAR, nameEN)
+  async getPosts(@Query('categoryID') categoryID?: string, @Query('nameAR') nameAR?: string, @Query('nameEN') nameEN?: string) { // '?' means that this param is optional
+    return await this.blogsService.getAllPostsByCategoryIdOrName(categoryID, nameAR, nameEN)
   }
 
   @Get('getAllPostsDesc') // this is GET with params as http://localhost:3000/blog/getAllPostsDesc that gets all blogs in descending order
@@ -54,8 +54,8 @@ export class BlogsController {
   }
 
   @Get('getPostByID/:id') // this is GET with params (id) as http://localhost:3000/blog/getPostByID/:id that gets one blog
-  getBlogByID(@Param('id',ParseUUIDPipe) id: string){
-    return this.blogsService.getBlogById(id)
+  async getBlogByID(@Param('id',ParseUUIDPipe) id: string){
+    return await this.blogsService.getBlogById(id)
   }
 
   @Patch('updatePost/:id') // this is PATCH with params (id) as http://localhost:3000/blog/updatePost/:id that updates a blog
