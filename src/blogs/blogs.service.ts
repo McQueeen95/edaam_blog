@@ -43,10 +43,10 @@ export class BlogsService {
     }
   }
   async getAllBlogsDesc() {
-    return await this.databaseService.blog.findMany({where: {Post_date:'desc'}}); // from latest to oldest articles
+    return await this.databaseService.blog.findMany({orderBy: {Post_date: 'desc'}}); // from latest to oldest articles
   }
   async getAllBlogsAsc() {
-    return await this.databaseService.blog.findMany({where: {Post_date:'asc'}}); // from oldest to latest articles
+    return await this.databaseService.blog.findMany({orderBy: {Post_date: 'asc'}}); // from oldest to latest articles
   }
   async getBlogById(Article_id: string) {
     return await this.databaseService.blog.findUnique({ where: { Article_id } }); // where takes the name of the column , if not the name of the column we write it as {columnName: variable}
