@@ -44,13 +44,13 @@ export class BlogsController {
   }
 
   @Get('getAllPostsDesc') // this is GET with params as http://localhost:3000/blog/getAllPostsDesc that gets all blogs in descending order
-  getAllBlogsDesc(){
-    return this.blogsService.getAllBlogsDesc()
+  async getAllBlogsDesc(){
+    return await this.blogsService.getAllBlogsDesc()
   }
 
   @Get('getAllPostsAsc') // this is GET with params as http://localhost:3000/blog/getAllPostsAsc that gets all blogs in ascending order
-  getAllBlogsAsc(){
-    return this.blogsService.getAllBlogsAsc()
+  async getAllBlogsAsc(){
+    return await this.blogsService.getAllBlogsAsc()
   }
 
   @Get('getPostByID/:id') // this is GET with params (id) as http://localhost:3000/blog/getPostByID/:id that gets one blog
