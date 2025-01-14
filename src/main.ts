@@ -12,7 +12,7 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
   // commented for now
   app.enableCors({
-    origin: /(https?:\/\/(?:localhost:\d+|www\.mysite\.com))\/?$/ , // allow http://localhost:XXXX or http://www.mysite.com
+    origin: /(https?:\/\/(?:localhost:\d+|ad3m\.com))\/?$/ , // allow http://localhost:XXXX or http://ad3m.com
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   })
   // app.enableCors({
